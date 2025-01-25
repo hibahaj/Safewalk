@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SafeWalk</title>
+    <style>
+        body { 
+            font-family: Arial, sans-serif; 
+            text-align: center; 
+            padding: 20px; 
+            background-color: #f3f3f3; 
+        }
+        .btn { 
+            padding: 15px 30px; 
+            background: #ff4081; 
+            color: white; 
+            border: none; 
+            cursor: pointer; 
+            margin: 10px; 
+            border-radius: 5px; 
+            font-size: 18px;
+        }
+        .btn:hover {
+            background: #d81b60;
+        }
+        .input-field {
+            padding: 10px; 
+            width: 80%; 
+            max-width: 300px; 
+            margin: 10px auto; 
+            border: 1px solid #ccc; 
+            border-radius: 5px;
+        }
+        .tips { 
+            margin-top: 20px; 
+            padding: 15px; 
+            background: #fff; 
+            border-radius: 5px; 
+            box-shadow: 0 0 10px rgba(0,0,0,0.1); 
+            max-width: 400px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        ul { 
+            list-style: none; 
+            padding: 0; 
+        }
+        ul li::before {
+            content: "✔ "; 
+            color: green;
+        }
+    </style>
+</head>
+<body>
+    <h1>SafeWalk</h1>
+    <p>Your quick safety companion</p>
+    
+    <!-- Input for emergency contact number -->
+    <input id="contactNumber" class="input-field" type="text" placeholder="Enter emergency contact (e.g. +911234567890)" />
+    <button class="btn" onclick="saveContact()">Save Contact</button>
+    
+    <br>
+    <button class="btn" onclick="sendWhatsAppLocation()">Send Location via WhatsApp</button>
+
+    <div class="tips">
+        <h3>Quick Safety Tips</h3>
+        <ul>
+            <li>Always share your route with friends.</li>
+            <li>Stay in well-lit areas.</li>
+            <li>Trust your instincts.</li>
+            <li>Keep your phone charged.</li>
+        </ul>
+    </div>
+
+    <script>
+        function saveContact() {
+            var contact = document.getElementById('contactNumber').value;
+            if (contact.trim() === "") {
+                alert("Please enter a valid emergency contact number!");
+                return;
+            }
+            localStorage.setItem('emergencyContact', contact);
+            alert("Emergency contact saved successfully!");
+        }
+
+        function sendWhatsAppLocation() {
+            var contact = localStorage.getItem('emergencyContact');
+            if (!contact) {
+                alert("Please enter and save an emergency contact first.");
+                return;
+            }
+
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(function(position) {
+                    var latitude = position.coords.latitude;
+                    var longitude = position.coords.longitude;
+                    var message = `I'm in trouble. My location: https://www.google.com/maps?q=${latitude},${longitude}`;
+                    var whatsappURL = `https://wa.me/${contact}?text=${encodeURIComponent(message)}`;
+                    window.location.href = whatsappURL;
+                }, function(error) {
+                    alert("Unable to retrieve location. Please check location permissions.");
+                });
+            } else {
+                alert("Geolocation is not supported by this browser.");
+            }
+        }
+    </script>
+</body>
+</html>
