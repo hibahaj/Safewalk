@@ -5,15 +5,23 @@ Hibah AJ- RIT Kottayam
 Nada-RIT Kottayam
 Hosted Project Link
 https://hibahaj.github.io/Safewalk/
+
 Project Description
+
 SafeWalk is an app that helps travelers keep important contacts stored securely and sends their real-time location during emergencies, ensuring help can reach them quickly.
 
 The Problem Statement
+
 Traveling alone or in unfamiliar areas can pose risks, and not having immediate access to emergency contacts or location-sharing can make seeking help more difficult.
+
 The Solution
+
 SafeWalk simplifies emergency response by offering users a way to store emergency contacts and send their live location in critical situations, providing a quick response system for travelers in need.
+
 Technical Details
+
 Technologies/Components Used
+
 For Software:
 
 Languages used: HTML, CSS, JavaScript
